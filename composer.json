@@ -1,0 +1,14 @@
+{
+    "name": "sebwas/laravel-migration-physical-backup",
+    "description": "This simple tool helps the developer creating physical backups of the tables he is altering using migrations, allowing for easy and fast restore",
+    "require": {
+        "laravel/framework": "^5.0.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Wasser",
+            "email": "sebastian.wasser@gmail.com"
+        }
+    ]
+}
