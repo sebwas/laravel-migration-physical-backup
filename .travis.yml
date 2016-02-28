@@ -29,6 +29,7 @@ before_install:
 
 install:
   - scripts/install.sh
+  - composer dump-autoload
 
 before_cache:
   - cp composer.lock vendor/
