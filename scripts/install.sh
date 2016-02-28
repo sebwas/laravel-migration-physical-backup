@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ -f vendor/composer.lock ]]; then
+	cp vendor/composer.lock ./
+fi
+
 updateOutput=`composer update 1>/dev/null`
 
 if [[ $? -ne 0 ]]; then

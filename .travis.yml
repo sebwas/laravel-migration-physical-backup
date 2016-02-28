@@ -26,7 +26,6 @@ git:
 
 before_install:
   - phpenv config-rm xdebug.ini
-  - cp vendor/composer.lock ./
 
 install:
   - scripts/install.sh
