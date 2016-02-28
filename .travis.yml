@@ -1,14 +1,19 @@
-sudo: required
-
 language: php
 php:
   - '7.0'
   - hhvm
+  - nightly
+
+cache:
+  directories:
+    - vendor
 
 matrix:
   fast_finish: true
   allow_failures:
-    - php: hhvm
+    - php:
+      - hhvm
+      - nightly
 
 branches:
   only:
@@ -19,8 +24,12 @@ git:
   depth:
     3
 
+before_install:
+  - phpenv config-rm xdebug.ini
+
 install:
   - scripts/install.sh
+  - composer dump-autoload
 
-script:
-  - phpunit
+before_cache:
+  - cp composer.lock vendor/

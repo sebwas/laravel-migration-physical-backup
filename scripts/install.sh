@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Change to root folder (assuming this lies in scripts)
-cd ..
+if [[ -f vendor/composer.lock ]]; then
+	cp vendor/composer.lock ./
+fi
 
 updateOutput=`composer update 1>/dev/null`
 
@@ -12,6 +13,9 @@ if [[ $? -ne 0 ]]; then
 		echo "$output"
 		exit 1;
 	fi
+
+	echo "$output"
+	exit 0;
 fi
 
 echo "$updateOutput"
