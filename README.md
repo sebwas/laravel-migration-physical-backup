@@ -12,7 +12,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class TestMigration extends Migration
 {
-	use PhysicalBackup {down as runRestore};
+	use PhysicalBackup;
 
     /**
      * Run the migrations.
@@ -32,7 +32,7 @@ class TestMigration extends Migration
     public function down()
     {
     	$this->runRestore();
-		// Either delete this function or import the method using an alias and calling it from here
+		// Either delete this function or use the runRestore method from here
     }
 }
 ```

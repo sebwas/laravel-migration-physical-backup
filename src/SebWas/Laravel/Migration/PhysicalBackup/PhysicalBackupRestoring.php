@@ -8,19 +8,19 @@ namespace SebWas\Laravel\Migration\PhysicalBackup;
  * @package SebWas\Laravel\Migration\PhysicalBackup
  */
 trait PhysicalBackupRestoring {
-	use PhysicalBackupFileName;
+	abstract public function getOutputFileName(): string;
 
 	/**
 	 * Runs the restore process
 	 */
 	public function down(){
-		$this->run();
+		$this->runRestore();
 	}
 
 	/**
 	 * Runs the physical backup restoring
 	 */
-	public function run(){
+	public function runRestore(){
 		$this->restoreFrom(
 			$this->getOutputFileName());
 	}
@@ -31,7 +31,7 @@ trait PhysicalBackupRestoring {
 	 * @param  string $fileName
 	 */
 	protected function restoreFrom(string $fileName){
-		$command = $this->getRestoreCommand($fileName);
+		$command = $this->getRestoreCommand($this->getBaseRestoreCommand(), $fileName);
 
 		exec($command, $output, $exitCode);
 
@@ -68,7 +68,7 @@ trait PhysicalBackupRestoring {
 	 * @return string
 	 */
 	protected function getBaseRestoreCommand(): string {
-		return sprintf('mysql -u %s -p%s --default-character-set=utf8 %s < %%s',
+		return sprintf('mysql -u %s -p%s --default-character-set=utf8 %s -e "%%s"',
 			str_replace('%', '%%', config('database.connections.mysql.username')),
 			str_replace('%', '%%', config('database.connections.mysql.password')),
 			config('database.connections.mysql.database')

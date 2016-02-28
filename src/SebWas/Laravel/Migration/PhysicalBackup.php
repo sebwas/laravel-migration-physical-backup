@@ -9,5 +9,6 @@ namespace SebWas\Laravel\Migration;
  */
 trait PhysicalBackup {
 	use PhysicalBackup\PhysicalBackupCreation;
+	use PhysicalBackup\PhysicalBackupFileName;
 	use PhysicalBackup\PhysicalBackupRestoring;
 }
