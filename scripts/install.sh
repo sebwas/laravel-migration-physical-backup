@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Change to root folder (assuming this lies in scripts)
-cd ..
-
 updateOutput=`composer update 1>/dev/null`
 
 if [[ $? -ne 0 ]]; then
