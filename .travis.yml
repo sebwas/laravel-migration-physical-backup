@@ -1,0 +1,26 @@
+sudo: required
+
+language: php
+php:
+  - '7.0'
+  - hhvm
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: hhvm
+
+branches:
+  only:
+    - master
+    - dev
+
+git:
+  depth:
+    3
+
+install:
+  - scripts/install.sh
+
+script:
+  - phpunit
