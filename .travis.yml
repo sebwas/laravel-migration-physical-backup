@@ -20,8 +20,8 @@ git:
   depth:
     3
 
+before_install:
+  - phpenv config-rm xdebug.ini
+
 install:
   - scripts/install.sh
-
-before_script:
-  - phpenv config-rm xdebug.ini
