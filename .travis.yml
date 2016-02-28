@@ -4,6 +4,10 @@ php:
   - hhvm
   - nightly
 
+cache:
+  directories:
+    - vendor
+
 matrix:
   fast_finish: true
   allow_failures:
