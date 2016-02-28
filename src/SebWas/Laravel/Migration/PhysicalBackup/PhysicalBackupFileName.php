@@ -26,9 +26,9 @@ trait PhysicalBackupFileName {
 	 * @return string
 	 */
 	protected function createBackupFolder(): string {
-		$directory = storage_path() . DIRECTORY_SEPARATOR . 'migration-backup';
+		$directory = storage_path('migration-backup');
 
-		if(!\Storage::makeDirectory($directory)){
+		if(!is_writable($directory) || !@mkdir($directory)){
 			$directory = getcwd();
 		}
 

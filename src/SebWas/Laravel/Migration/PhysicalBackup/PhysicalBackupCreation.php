@@ -8,13 +8,15 @@ namespace SebWas\Laravel\Migration\PhysicalBackup;
  * @package SebWas\Laravel\Migration\PhysicalBackup
  */
 trait PhysicalBackupCreation {
-	use PhysicalBackupFileName;
+	abstract public function getOutputFileName(): string;
 
 	/**
 	 * The constructor gets everything going
 	 */
 	public function __construct(){
-		$this->run();
+		if($this->isValidUseCase()){
+			$this->run();
+		}
 	}
 
 	/**
@@ -28,6 +30,22 @@ trait PhysicalBackupCreation {
 	}
 
 	/**
+	 * Tells if it is a valid use case for the creation
+	 *
+	 * @return boolean
+	 */
+	protected function isValidUseCase(){
+		global $argv;
+
+		switch(strtolower($argv[1])){
+			case 'migrate':
+				return true;
+			default:
+				return false;
+		}
+	}
+
+	/**
 	 * Runs the actual backup backing up the given columns
 	 *
 	 * @param  array  $tableNames
@@ -38,7 +56,7 @@ trait PhysicalBackupCreation {
 		exec($command, $output, $exitCode);
 
 		if($exitCode !== 0){
-			throw new \RuntimeException('Could not dump mysql because:' . PHP_EOL . $output);
+			throw new \RuntimeException('Could not dump mysql because:' . PHP_EOL . implode("\n", $output));
 		}
 	}
 
