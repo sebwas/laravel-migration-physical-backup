@@ -27,6 +27,11 @@ class TableResolver {
 		'/\/\/.*/'
 	];
 
+	/**
+	 * The partial regexes used to get the table names
+	 *
+	 * @var array
+	 */
 	private $defaultSurroundings = [
 		'prefix' => '#Schema\s*::\s*',
 		'suffix' => '\s*\(\s*(?:\'|")(?P<tablename>[\x01-\xff]+?)(?:\'|")#'
@@ -49,6 +54,15 @@ class TableResolver {
 	public function resolve(): array {
 		$this->run();
 
+		return $this->tableNames;
+	}
+
+	/**
+	 * Returns the tables names that have (or have not) been resolved
+	 *
+	 * @return array
+	 */
+	public function getTableNames(): array {
 		return $this->tableNames;
 	}
 

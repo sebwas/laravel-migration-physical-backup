@@ -15,18 +15,33 @@ trait PhysicalBackupCreation {
 	 */
 	public function __construct(){
 		if($this->isValidUseCase()){
-			$this->run();
+			$this->runBackupCreation();
 		}
 	}
 
 	/**
 	 * Runs the physical backup creation
 	 */
-	public function run(){
+	protected function runBackupCreation(){
 		$tableResolver = $this->getTableResolver();
 
-		$this->runBackup(
-			$tableResolver->resolve());
+		$tableNames = $this->checkTables(
+						$tableResolver->resolve());
+
+		$this->runBackup($tableNames);
+	}
+
+	/**
+	 * Returns only tables that are actually existing
+	 *
+	 * @param  array  $tableNames
+	 * @return array
+	 */
+	protected function checkTables(array $tableNames): array {
+		$tables = \DB::select("SHOW TABLES");
+
+		return array_intersect(
+					array_column($tables, 0), $tableNames);
 	}
 
 	/**
@@ -56,7 +71,7 @@ trait PhysicalBackupCreation {
 		exec($command, $output, $exitCode);
 
 		if($exitCode !== 0){
-			throw new \RuntimeException('Could not dump mysql because:' . PHP_EOL . implode("\n", $output));
+			throw new \RuntimeException('Could not dump mysql');
 		}
 	}
 
