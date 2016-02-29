@@ -53,6 +53,15 @@ class TableResolver {
 	}
 
 	/**
+	 * Returns the tables names that have (or have not) been resolved
+	 *
+	 * @return array
+	 */
+	public function getTableNames(): array {
+		return $this->tableNames;
+	}
+
+	/**
 	 * Runs the table resolver
 	 */
 	protected function run(){
