@@ -27,6 +27,11 @@ class TableResolver {
 		'/\/\/.*/'
 	];
 
+	/**
+	 * The partial regexes used to get the table names
+	 *
+	 * @var array
+	 */
 	private $defaultSurroundings = [
 		'prefix' => '#Schema\s*::\s*',
 		'suffix' => '\s*\(\s*(?:\'|")(?P<tablename>[\x01-\xff]+?)(?:\'|")#'

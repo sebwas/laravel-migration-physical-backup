@@ -71,7 +71,7 @@ trait PhysicalBackupCreation {
 		exec($command, $output, $exitCode);
 
 		if($exitCode !== 0){
-			throw new \RuntimeException('Could not dump mysql because:' . PHP_EOL . implode("\n", $output));
+			throw new \RuntimeException('Could not dump mysql');
 		}
 	}
 

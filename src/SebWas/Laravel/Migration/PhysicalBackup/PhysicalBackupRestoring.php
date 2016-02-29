@@ -20,7 +20,7 @@ trait PhysicalBackupRestoring {
 	/**
 	 * Runs the physical backup restoring
 	 */
-	public function runRestore(){
+	protected function runRestore(){
 		$this->restoreFrom(
 			$this->getOutputFileName());
 	}
