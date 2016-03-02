@@ -28,8 +28,8 @@ before_install:
   - phpenv config-rm xdebug.ini
 
 install:
-  - scripts/install.sh
-  - composer dump-autoload
+  - if [ -f vendor/composer.lock ] ; then cp vendor/composer.lock ./ ; fi
+  - composer update
 
 before_cache:
   - cp composer.lock vendor/
